@@ -32,13 +32,13 @@ const PostStackScreen = ({ navigation }) => {
 			screenOptions={stackOptions}
 		>
 			<PostStack.Screen
-				name='Home'
+				name='Blog'
 				component={MainScreen}
 				options={{
 					title: 'Blog',
 					headerRight: () => (
 						<HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-							<Item title='Take photo' iconName='ios-camera' onPress={() => navigation.navigate('Create')} />
+							<Item title='Take photo' iconName='ios-camera' onPress={() => navigation.navigate('CreateStackScreen')} />
 						</HeaderButtons>
 					),
 					headerLeft: (props) => (
@@ -89,7 +89,7 @@ const TabsScreen = () => {
 			shifting={true}
 		>
 			<Tab.Screen
-				name='Blog'
+				name='PostStackScreen'
 				component={PostStackScreen}
 				options={{
 					tabBarLabel: 'Blog',
@@ -98,7 +98,7 @@ const TabsScreen = () => {
 				}}
 			/>
 			<Tab.Screen
-				name='Booked'
+				name='BookedStackScreen'
 				component={BookedStackScreen}
 				options={{
 					tabBarLabel: 'Favorites',
@@ -120,6 +120,7 @@ const CreateStackScreen = ({ navigation }) => {
 				name='Create'
 				component={CreateScreen}
 				options={{
+					title: 'Create new post',
 					headerLeft: (props) => (
 						<HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
 							<Item title='Toggle Drawer' iconName='ios-menu' onPress={() => navigation.toggleDrawer()} />
@@ -166,21 +167,21 @@ const DrawerScreen = () => {
 			}}
 		>
 			<Drawer.Screen
-				name='Tabs'
+				name='TabsScreen'
 				component={TabsScreen}
 				options={{
 					drawerLabel: 'Blog'
 				}}
 			/>
 			<Drawer.Screen
-				name='CreateStack'
+				name='CreateStackScreen'
 				component={CreateStackScreen}
 				options={{
 					drawerLabel: 'Create'
 				}}
 			/>
 			<Drawer.Screen
-				name='AboutStack'
+				name='AboutStackScreen'
 				component={AboutStackScreen}
 				options={{
 					drawerLabel: 'About'
