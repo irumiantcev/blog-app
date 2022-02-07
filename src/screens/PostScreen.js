@@ -1,26 +1,31 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Text, View, StyleSheet, Image, Button, ScrollView, Alert } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
-import { DATA } from '../data';
 import { THEME } from '../theme';
 import { AppHeaderIcon } from '../components/AppHeaderIcon';
+import { removePost, toggleBooked } from '../store/actions/post';
+
 
 export const PostScreen = ({ navigation, route }) => {
 	const postId = route.params?.postId;
-	const post = DATA.find(p => p.id === postId);
+
+	const post = useSelector(state => state.post.allPosts.find(post => post.id === postId));
+	const booked = useSelector(state => state.post.bookedPosts.some(post => post.id === postId));
+
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		navigation.setOptions({
-			title: `Post dated ${new Date(post.date).toLocaleDateString()}`,
+			title: `Post dated ${new Date(post?.date).toLocaleDateString()}`,
 			headerRight: () => (
 				<HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-					<Item title='Take photo' iconName={post.booked ? 'ios-star' : 'ios-star-outline'} onPress={() => console.log('pressed star')} />
+					<Item title='Take photo' iconName={booked ? 'ios-star' : 'ios-star-outline'} onPress={() => dispatch(toggleBooked(postId))} />
 				</HeaderButtons>
 			)
 		});
-
-	}, [postId]);
+	}, [postId, booked]);
 
 	const removeHandler = () => {
 		Alert.alert(
@@ -33,7 +38,10 @@ export const PostScreen = ({ navigation, route }) => {
 				},
 				{
 					text: 'OK',
-					onPress: () => {},
+					onPress: () => {
+						navigation.navigate('Blog');
+						dispatch(removePost(postId));
+					},
 					style: 'destructive'
 				}
 			],
@@ -41,6 +49,14 @@ export const PostScreen = ({ navigation, route }) => {
 				cancelable: false
 			}
 		)
+	}
+
+	if (!post) {
+		return (
+			<View style={styles.center}>
+				<Text>No post</Text>
+			</View>
+		);
 	}
 
 	return (
@@ -64,5 +80,10 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		fontFamily: 'open-regular'
+	},
+	center: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center'
 	}
 })

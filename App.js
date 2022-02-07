@@ -1,8 +1,10 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import 'react-native-gesture-handler';
 
+import store from './src/store';
 import { AppNavigation } from './src/navigation/AppNavigation';
 
 export default function App() {
@@ -15,5 +17,9 @@ export default function App() {
         return <AppLoading />;
     }
 
-    return <AppNavigation />;
+    return (
+        <Provider store={store}>
+            <AppNavigation />
+        </Provider>
+    );
 }
