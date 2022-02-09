@@ -3,7 +3,6 @@ import {
 	View,
 	StyleSheet,
 	TextInput,
-	Image,
 	Button,
 	ScrollView,
 	TouchableWithoutFeedback,
@@ -13,12 +12,12 @@ import { useDispatch } from 'react-redux';
 
 import { THEME } from '../theme';
 import { addPost } from '../store/actions/post';
+import { PhotoPicker } from '../components/PhotoPicker';
 
 export const CreateScreen = ({ navigation }) => {
 	const [text, setText] = useState('');
+	const [img, setImg] = useState(null);
 	const dispatch = useDispatch();
-
-	const img = 'https://www.arturodraws.com/uploads/4/1/6/5/41651745/kevin-love_orig.jpg';
 
 	const saveHandler = () => {
 		const post = {
@@ -29,6 +28,8 @@ export const CreateScreen = ({ navigation }) => {
 		};
 		dispatch(addPost(post));
 		navigation.navigate('Blog');
+		setText('');
+		setImg(null);
 	}
 
 	return (
@@ -42,11 +43,8 @@ export const CreateScreen = ({ navigation }) => {
 						onChangeText={setText}
 						multiline
 					/>
-					<Image
-						style={{ width: '100%', height: 200, marginBottom: 10 }}
-						source={{uri: img}}
-					/>
-					<Button title='Add post' color={THEME.MAIN_COLOR} onPress={saveHandler} />
+					<PhotoPicker img={img} setImg={setImg} />
+					<Button title='Add post' color={THEME.MAIN_COLOR} onPress={saveHandler} disabled={!text || !img} />
 				</View>
 			</TouchableWithoutFeedback>
 		</ScrollView>
@@ -59,6 +57,10 @@ const styles = StyleSheet.create({
 	},
 	textarea: {
 		padding: 10,
-		marginBottom: 10
+		marginBottom: 10,
+		borderBottomWidth: 2,
+		borderBottomColor: THEME.MAIN_COLOR,
+		fontSize: 18,
+		fontFamily: 'open-regular'
 	}
 })
