@@ -21,11 +21,11 @@ export const PostScreen = ({ navigation, route }) => {
 			title: `Post dated ${new Date(post?.date).toLocaleDateString()}`,
 			headerRight: () => (
 				<HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-					<Item title='Take photo' iconName={booked ? 'ios-star' : 'ios-star-outline'} onPress={() => dispatch(toggleBooked(postId))} />
+					<Item title='Take photo' iconName={booked ? 'ios-star' : 'ios-star-outline'} onPress={() => dispatch(toggleBooked(post))} />
 				</HeaderButtons>
 			)
 		});
-	}, [postId, booked]);
+	}, [post, booked]);
 
 	const removeHandler = () => {
 		Alert.alert(

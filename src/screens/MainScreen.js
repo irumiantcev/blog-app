@@ -1,24 +1,41 @@
 import React, { useEffect } from 'react';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { PostList } from '../components/PostList';
 import { loadPosts } from '../store/actions/post';
+import { THEME } from '../theme';
 
 export const MainScreen = ({ navigation }) => {
 
 	const dispatch = useDispatch();
 
-	const allPosts = useSelector(state => state.post.allPosts);
-
 	useEffect(() => {
 		dispatch(loadPosts());
 	}, [dispatch]);
+
+	const allPosts = useSelector(state => state.post.allPosts);
+	const loading = useSelector(state => state.post.loading);
 
 	const openPostHandler = post => {
 		navigation.navigate('Post', {postId: post.id, date: post.date});
 	}
 
-	return (
-		<PostList data={allPosts} onOpen={openPostHandler}/>
-	);
+	if (loading) {
+		return (
+			<View style={styles.center}>
+				<ActivityIndicator size='large' color={THEME.MAIN_COLOR} />
+			</View>
+		);
+	}
+
+	return <PostList data={allPosts} onOpen={openPostHandler}/>;
 }
+
+const styles = StyleSheet.create({
+	center: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
+	}
+});

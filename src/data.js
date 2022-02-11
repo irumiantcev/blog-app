@@ -19,7 +19,7 @@ export const DATA = [
 		id: '3',
 		img:
 			'https://i.pinimg.com/originals/b4/22/70/b42270788b35e82cdd86d2d9720e5cdd.png',
-		text: 'Awesome text for post 3',
+		text: 'Awesome tex t for post 3',
 		date: new Date().toJSON(),
 		booked: false
 	},
