@@ -1,15 +1,17 @@
 {
   "expo": {
-    "name": "blog-app",
+    "name": "Self blog",
     "slug": "blog-app",
     "version": "1.0.0",
+    "privacy": "public",
+    "platforms": ["ios", "android"],
     "orientation": "portrait",
     "owner": "rumiantcev",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#6a51ae"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,7 +25,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#6a51ae"
       }
     },
     "web": {
